@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Titik Kuliner</title>
+		<title>Poligon Kediri</title>
 		<link
 			href="https://unsorry.net/assets-date/images/favicon.png"
 			rel="shortcut icon"
@@ -42,24 +42,37 @@
 			);
 			basemap.addTo(map);
 
-			/* GeoJSON Point */
-			var point = L.geoJson(null, {
+			/* GeoJSON Polygon */
+			var polygon = L.geoJson(null, {
+				/* Style polygon */
+				style: function (feature) {
+					return {
+						color: "#3388ff",
+						fillColor: "#3388ff",
+						weight: 2,
+						opacity: 1,
+						fillOpacity: 0.2,
+					};
+				},
 				onEachFeature: function (feature, layer) {
-					var popupContent = "Nama: " + feature.properties.Nama+ "<br>" +
-						"Keterangan: " + feature.properties.Objek;
+					var popupContent = "Kecamatan: " + feature.properties.kecamatan + "<br>" +
+						"Kabupaten/Kota: " + feature.properties.kab_kota + "<br>" +
+						"Luas: " + feature.properties.luas_km2 + " km2";
 					layer.on({
 						click: function (e) {
-							point.bindPopup(popupContent);
+							polygon.bindPopup(popupContent);
 						},
 						mouseover: function (e) {
-							point.bindTooltip(feature.properties.Nama);
+							polygon.bindTooltip(feature.properties.kecamatan, {
+								sticky: true,
+							});
 						},
 					});
 				},
 			});
-			$.getJSON("data/Kuliner.geojson", function (data) {
-				point.addData(data);
-				map.addLayer(point);
+			$.getJSON("data/Admin_Kediri.geojson", function (data) {
+				polygon.addData(data);
+				map.addLayer(polygon);
 			});
 		</script>
 	</body>
