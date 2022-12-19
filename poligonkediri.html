@@ -55,15 +55,14 @@
 					};
 				},
 				onEachFeature: function (feature, layer) {
-					var popupContent = "Kecamatan: " + feature.properties.kecamatan + "<br>" +
-						"Kabupaten/Kota: " + feature.properties.kab_kota + "<br>" +
-						"Luas: " + feature.properties.luas_km2 + " km2";
+					var popupContent = "Nama: " + feature.properties.NAMOBJ + "<br>" +
+						"Keterangan: " + feature.properties.REMARK ;
 					layer.on({
 						click: function (e) {
 							polygon.bindPopup(popupContent);
 						},
 						mouseover: function (e) {
-							polygon.bindTooltip(feature.properties.kecamatan, {
+							polygon.bindTooltip(feature.properties.NAMOBJ, {
 								sticky: true,
 							});
 						},
